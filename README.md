@@ -80,7 +80,8 @@ Hatchet is a distributed, fault-tolerant workflow orchestration engine.
 **10. Database Connection Pool `statement_timeout` Leak** *(under review)*
 - **Problem:** PostgreSQL `statement_timeout` settings set via `SET` in one query leak across pooled database connections, causing subsequent queries in the same connection to inherit unintended timeout configurations.
 - **Issue:** [#3898](https://github.com/hatchet-dev/hatchet/issues/3898)
-- **Proposed Fix:** Replace `SET statement_timeout` with `SET LOCAL statement_timeout` to scope configuration to the current transaction, and add pool connection initialization to reset session state on reuse.
+- **Analysis:** Root cause analysis published on the issue, identifying the `statement_timeout` leak across pooled connections with a proposed fix using `SET LOCAL` and pool reset.
+- **Status:** Issue was picked up by another contributor who implemented the fix based on the analysis.
 
 ---
 
